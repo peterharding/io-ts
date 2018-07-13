@@ -87,7 +87,7 @@ const x11: I2T = { name: 'name', father: { surname: 'surname' } }
 //
 
 const D1 = t.dictionary(t.keyof({ a: true }), t.number)
-type Assert9 = t.TypeOf<typeof D1> // $ExpectType TypeOfDictionary<KeyofType<{ a: true; }>, NumberType>
+type Assert9 = t.TypeOf<typeof D1> // $ExpectType TypeOfDictionary<KeyofType<{ a: boolean; }>, NumberType>
 // $ExpectError
 const x12: t.TypeOf<typeof D1> = { a: 's' }
 // $ExpectError
@@ -227,13 +227,13 @@ interface C1WithAdditionalProp {
 const C2 = t.clean<C1>(C1)
 // $ExpectError
 const C3 = t.clean<C1WithAdditionalProp, C1O>(C1)
-const C4 = t.clean<C1, C1O>(C1) // $ExpectType Type<C1, C1O, mixed>
-const C5 = t.alias(C1)<C1>() // $ExpectType InterfaceType<{ a: StringType; b: Type<Date, number, mixed>; }, C1, OutputOfProps<{ a: StringType; b: Type<Date, number, mixed>; }>, mixed>
+const C4 = t.clean<C1, C1O>(C1) // $ExpectType Type<C1, C1O, unknown>
+const C5 = t.alias(C1)<C1>() // $ExpectType InterfaceType<{ a: StringType; b: Type<Date, number, unknown>; }, C1, OutputOfProps<{ a: StringType; b: Type<Date, number, unknown>; }>, unknown>
 // $ExpectError
 const C6 = t.alias(C1)<C1, C1>()
 // $ExpectError
 const C7 = t.alias(C1)<C1WithAdditionalProp, C1O>()
-const C8 = t.alias(C1)<C1, C1O>() // $ExpectType InterfaceType<{ a: StringType; b: Type<Date, number, mixed>; }, C1, C1O, mixed>
+const C8 = t.alias(C1)<C1, C1O>() // $ExpectType InterfaceType<{ a: StringType; b: Type<Date, number, unknown>; }, C1, C1O, unknown>
 
 //
 // combinators
@@ -404,6 +404,7 @@ type Assert20 = t.TypeOf<typeof ActionType> // $ExpectType "Action1" | "Action2"
 
 import { TaskEither } from 'fp-ts/lib/TaskEither'
 
+// tslint:disable-next-line:strict-export-declare-modifiers
 declare function withValidation<L, A>(
   type: t.Type<A>,
   f: (errors: t.Errors) => L,

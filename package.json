@@ -16,7 +16,7 @@
     "clean": "rimraf lib/*",
     "build": "npm run clean && tsc",
     "perf": "node perf/index",
-    "dtslint": "dtslint dtslint"
+    "dtslint": "dtslint dtslint --onlyTestTsNext"
   },
   "repository": {
     "type": "git",
@@ -43,7 +43,7 @@
     "ts-jest": "22.4.2",
     "tslint": "5.9.1",
     "tslint-config-standard": "7.0.0",
-    "typescript": "^2.9.2"
+    "typescript": "^3.0.0-rc"
   },
   "tags": [
     "typescript",
